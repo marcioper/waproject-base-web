@@ -4,11 +4,13 @@ import { WithStyles } from 'decorators/withStyles';
 import { enRoles } from 'interfaces/models/user';
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon';
 import ViewDashboardIcon from 'mdi-react/ViewDashboardIcon';
+import ViewListIcon from 'mdi-react/ViewListIcon';
 import React, { PureComponent } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import DashboardIndexPage from './Dashboard';
 import UserIndexPage from './User';
+import OrderIndexPage from './Order';
 
 interface IProps {
   classes?: any;
@@ -43,7 +45,8 @@ export default class AdminPage extends PureComponent<IProps, {}> {
       display: 'Usuários',
       role: enRoles.admin,
       icon: AccountMultipleIcon
-    }
+    },
+    { path: '/pedidos', display: 'Pedidos', icon: ViewListIcon }
   ];
 
   scrollTop = () => {
@@ -62,6 +65,7 @@ export default class AdminPage extends PureComponent<IProps, {}> {
             <main ref={this.mainContent} className={classes.content}>
               <Switch>
                 <PermissionRoute path='/usuarios' role={enRoles.sysAdmin} component={UserIndexPage} />
+                <Route path='/pedidos' component={OrderIndexPage} />
                 <Route path='/' component={DashboardIndexPage} />
                 <Route render={this.renderRedirect} />
               </Switch>

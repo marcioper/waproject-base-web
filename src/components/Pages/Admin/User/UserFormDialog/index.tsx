@@ -75,7 +75,6 @@ export default class UserFormDialog extends FormComponent<IProps, IState> {
 
   loadData = () => {
     this.setState({ loading: true, error: null });
-
     userService
       .roles()
       .pipe(
@@ -85,7 +84,7 @@ export default class UserFormDialog extends FormComponent<IProps, IState> {
       .subscribe(
         roles => {
           const { user } = this.props;
-
+          if (roles === null) roles = [];
           this.setState({
             roles: roles.map(r => ({
               ...r,
